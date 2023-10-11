@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
 router.post('/create',upload.fields([{ name: "p_image" }]),Blog.createBlog);
 router.put('/update/:id',upload.fields([ { name: "p_image" }]),Blog.updateBlog);
 router.get('/:id',Blog.GetByIDBlog);
-router.get('/all', Blog.getAllBlog);
+router.get('/get/all', Blog.getAllBlog);
 router.delete('/delete/:id', Blog.deleteBlog);
 
 module.exports = router;
