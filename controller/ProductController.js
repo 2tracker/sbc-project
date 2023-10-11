@@ -29,6 +29,15 @@ exports.getAllProduct = async (req, res) => {
     }
   };
 
+  exports.GetbyIDProject = async (req, res) => {
+      const ProductID = req.params.id;
+      const product = await Product.findById(ProductID);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json({ message: "Product Get successfully" ,result:product});
+  };
+
 
   exports.updateProduct = async (req, res) => {
     try {

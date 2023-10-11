@@ -9,6 +9,5 @@ mongoose
     console.log("DB is connected");
   })
   .catch((error) => {
-    console.error("Error connecting to the database:", error.message);
     process.exit(1);
   });

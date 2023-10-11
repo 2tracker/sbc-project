@@ -1,5 +1,5 @@
 const express = require('express');
-const Product = require('../controller/ProductController');
+const News = require('../controller/NewletterController');
 const multer = require('multer');
 const path = require('path')
 
@@ -8,7 +8,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, "uploads/product");
+      cb(null, "uploads/news");
     
     },
     filename: function (req, file, cb) {
@@ -24,10 +24,10 @@ const storage = multer.diskStorage({
     },
   });
 
-router.post('/create',upload.fields([{ name: "p_image" }]),Product.createProduct);
-router.put('/update/:id',upload.fields([ { name: "p_image" }]),Product.updateProduct);
-router.get('/all', Product.getAllProduct);
-router.get('/get/:id', Product.GetbyIDProject);
-router.delete('/delete/:id', Product.deleteProduct);
+router.post('/create',upload.fields([{ name: "p_image" }]),News.createNews);
+router.put('/update/:id',upload.fields([ { name: "p_image" }]),News.updateNews);
+router.get('/:id',News.GetbyIDNews);
+router.get('/get/all', News.getAllNews);
+router.delete('/delete/:id', News.deleteNews);
 
 module.exports = router;

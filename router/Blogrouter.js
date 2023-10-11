@@ -1,5 +1,5 @@
 const express = require('express');
-const Product = require('../controller/ProductController');
+const Blog = require('../controller/BlogController');
 const multer = require('multer');
 const path = require('path')
 
@@ -8,7 +8,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, "uploads/product");
+      cb(null, "uploads/blog");
     
     },
     filename: function (req, file, cb) {
@@ -24,10 +24,10 @@ const storage = multer.diskStorage({
     },
   });
 
-router.post('/create',upload.fields([{ name: "p_image" }]),Product.createProduct);
-router.put('/update/:id',upload.fields([ { name: "p_image" }]),Product.updateProduct);
-router.get('/all', Product.getAllProduct);
-router.get('/get/:id', Product.GetbyIDProject);
-router.delete('/delete/:id', Product.deleteProduct);
+router.post('/create',upload.fields([{ name: "p_image" }]),Blog.createBlog);
+router.put('/update/:id',upload.fields([ { name: "p_image" }]),Blog.updateBlog);
+router.get('/:id',Blog.GetByIDBlog);
+router.get('/all', Blog.getAllBlog);
+router.delete('/delete/:id', Blog.deleteBlog);
 
 module.exports = router;

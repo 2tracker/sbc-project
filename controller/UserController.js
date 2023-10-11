@@ -37,29 +37,8 @@ exports.RegisterUser = async (req, res) => {
 };
 
 exports.SendOtp = async (req, res) => {
-  const { email } = req.body;
-  const otpExpiryMinutes = 20;
-
-  if (!email) {
-    return res.status(400).json({ error: "Please provide either an email " });
-  }
-
-  const otp = generateOTP();
-  const otpExpiration = new Date();
-  otpExpiration.setMinutes(otpExpiration.getMinutes() + otpExpiryMinutes);
-
+  const { email ,name,company,number,message} = req.body;
   try {
-    let user;
-    user = await User.findOne({ email: email });
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    user.otp = otp;
-    user.otpExpiration = otpExpiration;
-
-    await user.save();
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
@@ -67,35 +46,23 @@ exports.SendOtp = async (req, res) => {
         pass: process.env.MAIL_PASSWORD,
       },
     });
-
     const mailOptions = {
       from: process.env.MAIL_FROM,
       to: email,
       subject: "OTP Verification",
-      html: `<p><b>${otp}</b></p>`,
+      html: `<p><b>name:-${name}</b></p>company:- ${company}</b></p> <p><b> number :-${number}</b></p><p><b> message:-${message}</b></p>`,
     };
-
     transporter.sendMail(mailOptions, (error) => {
       if (error) {
         return res.status(500).json({ error: "Failed to send OTP via email" });
       }
-      res.send({ MSG: "sendOTP", otp: otp });
+      res.send({ MSG: "sendOTP",mailOptions});
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to store OTP" });
   }
 };
-
-function generateOTP() {
-  const digits = "0123456789";
-  let OTP = "";
-  for (let i = 0; i < 4; i++) {
-    OTP += digits[Math.floor(Math.random() * 10)];
-  }
-  return OTP;
-}
-
 exports.Login = async (req, res) => {
   const { email,otp } = req.body;
   console.log(otp, "otp");
