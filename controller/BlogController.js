@@ -1,5 +1,5 @@
 const Blog = require("../model/Blog");
-
+const path = require('path')
 exports.createBlog = async (req, res) => {
   try {
     const { title, description} = req.body;
@@ -28,6 +28,8 @@ exports.getAllBlog = async (req, res) => {
     //   res.status(500).json({ message: "Error fetching Blog" });
     // }
   };
+
+
 
 
   exports.updateBlog = async (req, res) => {
@@ -66,6 +68,13 @@ exports.getAllBlog = async (req, res) => {
       res.status(500).json({ message: "Error get Blog" });
     }
   };
+
+  exports.viewBlog = async (req, res) => {
+    const filename = req.params.filename
+    res.sendFile(path.join(__dirname,"../uploads/blog",filename))
+    console.log(path.join(__dirname,"../uploads/blog",filename,'path.join(__dirname,"../uploads/blog",filename'))
+  };
+  
 
 
   exports.deleteBlog = async (req, res) => {

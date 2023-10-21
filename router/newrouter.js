@@ -28,6 +28,7 @@ router.post('/create',upload.fields([{ name: "p_image" }]),News.createNews);
 router.put('/update/:id',upload.fields([ { name: "p_image" }]),News.updateNews);
 router.get('/:id',News.GetbyIDNews);
 router.get('/get/all', News.getAllNews);
+router.get('/get/:filename', News.viewNews);
 router.delete('/delete/:id', News.deleteNews);
 
 module.exports = router;

@@ -29,5 +29,6 @@ router.put('/update/:id',upload.fields([ { name: "p_image" }]),Blog.updateBlog);
 router.get('/:id',Blog.GetByIDBlog);
 router.get('/get/all', Blog.getAllBlog);
 router.delete('/delete/:id', Blog.deleteBlog);
+router.get('/image/:filename', Blog.viewBlog);
 
 module.exports = router;

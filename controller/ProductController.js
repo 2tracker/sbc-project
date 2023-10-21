@@ -1,5 +1,5 @@
 const Product = require("../model/Product");
-
+const path = require('path')
 exports.createProduct = async (req, res) => {
   try {
     const { title, description} = req.body;
@@ -27,6 +27,12 @@ exports.getAllProduct = async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: "Error fetching Product" });
     }
+  };
+
+  exports.viewProduct = async (req, res) => {
+    const filename = req.params.filename
+    res.sendFile(path.join(__dirname,"../uploads/product",filename))
+    console.log(path.join(__dirname,"../uploads/product",filename,'path.join(__dirname,"../uploads/blog",filename'))
   };
 
   exports.GetbyIDProject = async (req, res) => {

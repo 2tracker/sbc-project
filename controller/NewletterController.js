@@ -1,5 +1,5 @@
 const News = require("../model/Newsletter");
-
+const path = require('path')
 exports.createNews = async (req, res) => {
   try {
     const { title, description} = req.body;
@@ -48,6 +48,12 @@ exports.getAllNews = async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: "Error updating Blog" });
     }
+  };
+
+  exports.viewNews = async (req, res) => {
+    const filename = req.params.filename
+    res.sendFile(path.join(__dirname,"../uploads/news",filename))
+    console.log(path.join(__dirname,"../uploads/news",filename,'path.join(__dirname,"../uploads/blog",filename'))
   };
 
   exports.GetbyIDNews = async (req, res) => {
