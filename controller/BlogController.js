@@ -17,20 +17,18 @@ exports.createBlog = async (req, res) => {
 };
 
 exports.getAllBlog = async (req, res) => {
-    // try {
-      const blog = await Blog.find({});
-      if(blog){
-      res.status(201).send({ MSG:"All Blog Finded",data:blog});
-      }else{
-        res.status(201).send({ MSG:" Blog is Not Avalible"});
-      }
-    // } catch (error) {
-    //   res.status(500).json({ message: "Error fetching Blog" });
-    // }
-  };
-
-
-
+  try {
+    const blog = await Blog.find();
+    if (blog && blog.length > 0) {
+      res.status(200).json({ MSG: "All Blogs Found", data: blog });
+    } else {
+      res.status(404).json({ MSG: "No Blogs Found" });
+    }
+  } catch (error) {
+    console.error("Error fetching Blogs:", error);
+    res.status(500).json({ MSG: "Error fetching Blogs" });
+  }
+};
 
   exports.updateBlog = async (req, res) => {
     try {
